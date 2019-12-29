@@ -21,7 +21,7 @@ public class BeerController {
     public BeerController(BeerService beerService) {
         this.beerService = beerService;
     }
-
+                             
     @GetMapping("")
     public ResponseEntity<List<BeerDto>> getBeers() {
         return new ResponseEntity<>(beerService.getBearList(), HttpStatus.OK);
