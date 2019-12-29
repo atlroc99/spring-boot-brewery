@@ -14,7 +14,6 @@ public class BeerServiceImpl implements BeerService {
     private List<BeerDto> bearList = new ArrayList<>();
 
     public BeerServiceImpl() {
-        System.out.println("calling CreateBearlist");
         createBeerList();
     }
 
@@ -39,16 +38,8 @@ public class BeerServiceImpl implements BeerService {
                 }
             }
         }
-        return beerDto;
-
         
-
-     /*   return BeerDto.builder()
-                .id(UUID.randomUUID())
-                .beerName("Galaxy cat")
-                .beerStyle("Pale Ale")
-                .upc(long_upc)
-                .build();*/
+        return beerDto;
     }
 
     @Override
