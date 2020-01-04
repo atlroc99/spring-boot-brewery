@@ -2,11 +2,12 @@ package guru.springframework.springbootbrewery.web.controller;
 
 import guru.springframework.springbootbrewery.web.model.BeerDto;
 import guru.springframework.springbootbrewery.web.service.BeerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,6 +32,13 @@ public class BeerController {
         return new ResponseEntity<>(beerService.getBeerById(beerId), HttpStatus.OK);
     }
 
+    @GetMapping({"random-beer/{beerId}"})
+    public ResponseEntity<BeerDto> getBeerByRandomId(@PathVariable("beerId") UUID uuid) {
+        return new ResponseEntity<>(beerService.getBeerByRandomID(uuid), HttpStatus.OK);
+    }
+
+
+
     @PostMapping
     public ResponseEntity<BeerDto> saveNewBeer() {
         //todo impl
@@ -48,8 +56,4 @@ public class BeerController {
         //todo impl
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
-
-
-
-    
 }

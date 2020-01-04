@@ -8,4 +8,6 @@ import java.util.UUID;
 public interface BeerService {
     BeerDto getBeerById(UUID beerId);
     List<BeerDto> getBearList() ;
+    BeerDto getBeerByRandomID(UUID beerId);
+
 }

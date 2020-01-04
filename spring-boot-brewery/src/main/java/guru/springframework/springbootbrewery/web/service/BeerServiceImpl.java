@@ -1,12 +1,12 @@
 package guru.springframework.springbootbrewery.web.service;
 
 import guru.springframework.springbootbrewery.web.model.BeerDto;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
 
 @Service
 public class BeerServiceImpl implements BeerService {
@@ -42,14 +42,23 @@ public class BeerServiceImpl implements BeerService {
         return beerDto;
     }
 
+
     @Override
     public List<BeerDto> getBearList() {
         return this.bearList;
     }
 
+    @Override
+    public BeerDto getBeerByRandomID(UUID beerId) {
+      return  BeerDto.builder().id(UUID.randomUUID())
+                .beerName("Some Random Beer")
+                .beerStyle("Random Style")
+                .upc("Random UPC")
+                .build();
+    }
+
     private void createBeerList() {
         System.out.println("creating beer list");
-
         BeerDto bear_1 = BeerDto.builder()
                 .beerStyle("Black bear")
                 .beerName("Bear 1")
