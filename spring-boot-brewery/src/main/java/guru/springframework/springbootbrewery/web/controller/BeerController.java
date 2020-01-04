@@ -4,11 +4,9 @@ import guru.springframework.springbootbrewery.web.model.BeerDto;
 import guru.springframework.springbootbrewery.web.service.BeerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,9 +26,30 @@ public class BeerController {
     }
 
     @GetMapping({"/{beerId}"})
-    public ResponseEntity<BeerDto> getBeer(@PathVariable("beerId") UUID beerId) {
+    public ResponseEntity getBeer(@PathVariable("beerId") UUID beerId) {
         //return new ResponseEntity<>(BeerDto.builder().build(), HttpStatus.OK);
         return new ResponseEntity<>(beerService.getBeerById(beerId), HttpStatus.OK);
     }
+
+    @PostMapping
+    public ResponseEntity<BeerDto> saveNewBeer() {
+        //todo impl
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{beerId}")
+    public  ResponseEntity updateBeerById(@PathVariable("beerId") UUID beerId, @RequestBody BeerDto beerDto) {
+        //todo impl
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/{beerId}")
+    public ResponseEntity deleteBeerById(@PathVariable("beerId") UUID beerId) {
+        //todo impl
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+
+
     
 }
