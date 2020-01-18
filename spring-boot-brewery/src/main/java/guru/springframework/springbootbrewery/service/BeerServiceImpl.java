@@ -1,7 +1,7 @@
-package guru.springframework.springbootbrewery.web.service;
+package guru.springframework.springbootbrewery.service;
 
 import guru.springframework.springbootbrewery.web.model.BeerDto;
-import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@Slf4j
 public class BeerServiceImpl implements BeerService {
 
     private List<BeerDto> bearList = new ArrayList<>();
@@ -55,6 +56,35 @@ public class BeerServiceImpl implements BeerService {
                 .beerStyle("Random Style")
                 .upc("Random UPC")
                 .build();
+    }
+
+    @Override
+    public BeerDto saveNewBeer(BeerDto beerDto) {
+        return BeerDto.builder()
+                .id(beerDto.getId())
+                .beerName(beerDto.getBeerName())
+                .beerStyle(beerDto.getBeerStyle())
+                .build();
+    }
+
+    @Override
+    public void deleteBeer(UUID beerId) {
+        log.debug("Beer with ID: " + beerId.toString()  + " has been delete!");
+    }
+
+    @Override
+    public BeerDto updateBeer(UUID beerId, BeerDto beerDto) {
+        BeerDto existingBeer = BeerDto.builder()
+                .id(beerId)
+                .beerName("Existing beer")
+                .beerStyle("Exiting style")
+                .build();
+
+        existingBeer.setId(beerId);
+        existingBeer.setBeerName(beerDto.getBeerName());
+        existingBeer.setBeerStyle(beerDto.getBeerStyle());
+
+        return existingBeer;
     }
 
     private void createBeerList() {

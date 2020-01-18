@@ -1,9 +1,9 @@
 package guru.springframework.springbootbrewery.web.controller;
 
+import guru.springframework.springbootbrewery.ServerConfigs.Server;
 import guru.springframework.springbootbrewery.web.model.BeerDto;
-import guru.springframework.springbootbrewery.web.service.BeerService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import guru.springframework.springbootbrewery.service.BeerService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +16,13 @@ import java.util.UUID;
 public class BeerController {
 
     private BeerService beerService;
+    private Server server;
 
-    public BeerController(BeerService beerService) {
+    public BeerController(BeerService beerService, Server server) {
         this.beerService = beerService;
+        this.server = server;
     }
-                             
+
     @GetMapping("")
     public ResponseEntity<List<BeerDto>> getBeers() {
         return new ResponseEntity<>(beerService.getBearList(), HttpStatus.OK);
@@ -37,23 +39,24 @@ public class BeerController {
         return new ResponseEntity<>(beerService.getBeerByRandomID(uuid), HttpStatus.OK);
     }
 
-
-
     @PostMapping
-    public ResponseEntity<BeerDto> saveNewBeer() {
-        //todo impl
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<HttpHeaders> saveNewBeer(BeerDto beerDto) {
+        BeerDto savedBeer = beerService.saveNewBeer(beerDto);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        String location = server.getHostingServer() + "api/v1/beer/" + savedBeer.getId();
+        httpHeaders.add("Location", location);
+        return new ResponseEntity<>(httpHeaders, HttpStatus.CREATED);
     }
 
     @PutMapping("/{beerId}")
-    public  ResponseEntity updateBeerById(@PathVariable("beerId") UUID beerId, @RequestBody BeerDto beerDto) {
-        //todo impl
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    public ResponseEntity updateBeerById(@PathVariable("beerId") UUID beerId, @RequestBody BeerDto beerDto) {
+        BeerDto updatedBeer = beerService.updateBeer(beerId, beerDto);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{beerId}")
-    public ResponseEntity deleteBeerById(@PathVariable("beerId") UUID beerId) {
-        //todo impl
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteBeerById(@PathVariable("beerId") UUID beerId) {
+        beerService.deleteBeer(beerId);
     }
 }
