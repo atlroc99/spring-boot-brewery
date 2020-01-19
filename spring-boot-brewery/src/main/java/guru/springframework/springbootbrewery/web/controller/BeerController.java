@@ -63,13 +63,13 @@ public class BeerController {
         beerService.deleteBeer(beerId);
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
+ /*   @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<List> handleValidationException(ConstraintViolationException constrains) {
         List<String> errors = new ArrayList<>(constrains.getConstraintViolations().size());
         constrains.getConstraintViolations().forEach(constrain -> {
             errors.add(constrain.getPropertyPath() + " : " + constrain.getMessage());
         });
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-    }
+    }*/
 }
                                                                     
