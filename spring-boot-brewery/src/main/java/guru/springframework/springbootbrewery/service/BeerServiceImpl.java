@@ -1,14 +1,16 @@
-package guru.springframework.springbootbrewery.web.service;
+package guru.springframework.springbootbrewery.service;
 
 import guru.springframework.springbootbrewery.web.model.BeerDto;
+import guru.springframework.springbootbrewery.web.model.BeerStyleEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-
 @Service
+@Slf4j
 public class BeerServiceImpl implements BeerService {
 
     private List<BeerDto> bearList = new ArrayList<>();
@@ -42,70 +44,108 @@ public class BeerServiceImpl implements BeerService {
         return beerDto;
     }
 
+
     @Override
     public List<BeerDto> getBearList() {
         return this.bearList;
     }
 
+    @Override
+    public BeerDto getBeerByRandomID(UUID beerId) {
+      return  BeerDto.builder().id(UUID.randomUUID())
+                .beerName("Some Random Beer")
+                .beerStyle(BeerStyleEnum.GINGER_ALE)
+                .upc(12346567L)
+                .build();
+    }
+
+    @Override
+    public BeerDto saveNewBeer(BeerDto beerDto) {
+        return BeerDto.builder()
+                .id(beerDto.getId())
+                .beerName(beerDto.getBeerName())
+                .beerStyle(beerDto.getBeerStyle())
+                .build();
+    }
+
+    @Override
+    public void deleteBeer(UUID beerId) {
+        log.debug("Beer with ID: " + beerId.toString()  + " has been delete!");
+    }
+
+    @Override
+    public BeerDto updateBeer(UUID beerId, BeerDto beerDto) {
+        BeerDto existingBeer = BeerDto.builder()
+                .id(beerId)
+                .beerName("Existing beer")
+                .beerStyle(BeerStyleEnum.LAGER)
+                .build();
+
+        existingBeer.setId(beerId);
+        existingBeer.setBeerName(beerDto.getBeerName());
+        existingBeer.setBeerStyle(beerDto.getBeerStyle());
+
+        return existingBeer;
+    }
+
     private void createBeerList() {
         System.out.println("creating beer list");
-
         BeerDto bear_1 = BeerDto.builder()
-                .beerStyle("Black bear")
+                .beerStyle(BeerStyleEnum.PALE_ALE)
                 .beerName("Bear 1")
                 .id(UUID.randomUUID())
                 .build();
 
         BeerDto bear_2 = BeerDto.builder()
-                .beerStyle("Blue bear")
+                .beerStyle(BeerStyleEnum.PALE_ALE)
                 .beerName("Bear 2")
                 .id(UUID.randomUUID())
                 .build();
 
         BeerDto bear_3 = BeerDto.builder()
-                .beerStyle("Red Bear")
+                .beerStyle(BeerStyleEnum.WHEAT)
                 .beerName("Bear 3")
                 .id(UUID.randomUUID())
                 .build();
 
         BeerDto bear_4 = BeerDto.builder()
-                .beerStyle("Black bear")
+                .beerStyle(BeerStyleEnum.PLISNER)
                 .beerName("Bear 4")
                 .id(UUID.randomUUID())
                 .build();
 
         BeerDto bear_5 = BeerDto.builder()
-                .beerStyle("White Bear")
+                .beerStyle(BeerStyleEnum.GINGER_ALE)
                 .beerName("Bear 5")
                 .id(UUID.randomUUID())
                 .build();
 
         BeerDto bear_6 = BeerDto.builder()
-                .beerStyle("Yello Bear")
+                .beerStyle(BeerStyleEnum.PLISNER)
                 .beerName("Bear 6")
                 .id(UUID.randomUUID())
                 .build();
         BeerDto bear_7 = BeerDto.builder()
-                .beerStyle("Orange Bear")
+                .beerStyle(BeerStyleEnum.GINGER_ALE)
                 .beerName("Bear 7")
                 .id(UUID.randomUUID())
                 .build();
 
         BeerDto bear_8 = BeerDto.builder()
-                .beerStyle("Green bear")
+                .beerStyle(BeerStyleEnum.PALE_ALE)
                 .beerName("Bear 8")
                 .id(UUID.randomUUID())
                 .build();
 
         BeerDto bear_9 = BeerDto.builder()
-                .beerStyle("Pink Bear")
+                .beerStyle(BeerStyleEnum.LAGER)
                 .beerName("Bear 9")
                 .id(UUID.randomUUID())
                 .build();
 
 
         BeerDto bear_10 = BeerDto.builder()
-                .beerStyle("Purple Bear")
+                .beerStyle(BeerStyleEnum.PALE_ALE)
                 .beerName("Bear 10")
                 .id(UUID.randomUUID())
                 .build();
