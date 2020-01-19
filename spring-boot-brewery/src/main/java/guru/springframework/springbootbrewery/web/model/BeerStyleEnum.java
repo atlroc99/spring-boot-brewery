@@ -5,5 +5,6 @@ public enum BeerStyleEnum {
     LAGER,
     PALE_ALE,
     WHEAT,
-    GINGER_ALE
+    GINGER_ALE,
+    EXISTING_STYLE
 }

@@ -1,8 +1,8 @@
 package guru.springframework.springbootbrewery.web.controller;
 
 import guru.springframework.springbootbrewery.ServerConfigs.Server;
-import guru.springframework.springbootbrewery.web.model.BeerDto;
 import guru.springframework.springbootbrewery.service.BeerService;
+import guru.springframework.springbootbrewery.web.model.BeerDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
