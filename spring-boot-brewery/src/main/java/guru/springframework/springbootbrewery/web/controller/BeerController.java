@@ -66,10 +66,10 @@ public class BeerController {
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<List> handleValidationException(ConstraintViolationException constrains) {
         List<String> errors = new ArrayList<>(constrains.getConstraintViolations().size());
-        constrains.getConstraintViolations().forEach( constrain -> {
+        constrains.getConstraintViolations().forEach(constrain -> {
             errors.add(constrain.getPropertyPath() + " : " + constrain.getMessage());
         });
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
-}                        }
-
+}
+                                                                    d .
